@@ -1,0 +1,121 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "margin-top": 4,
+  "margin-left": 4,
+  "margin-right": 4,
+  //"margin-bottom": 4,
+  "modules-left": ["custom/launcher", "niri/workspaces", "mpris"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "backlight", "pulseaudio", "battery", "memory", "cpu", "temperature", "custom/controlcenter", "custom/power"],
+
+  "niri/workspaces": {
+    "format": "{icon}",
+    "icon-size": 16,
+    "format-icons": {
+      "active": "",
+      "default": ""
+    }
+  },
+
+  "niri/window": {
+    "format": "{}",
+    "max-length": 50
+  },
+
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "interval": 1,
+    "icon-size": 16,
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "⏸"
+    },
+    "status-icons": {
+      "paused": "▶"
+    }
+  },
+
+  "pulseaudio": {
+    "format": "{icon}{volume}%",
+    "icon-size": 16,
+    "format-muted": "",
+    "on-click": "pavucontrol"
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "icon-size": 16,
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "󱐋",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+
+  "cpu": {
+    "interval": 10,
+    "icon-size": 28,
+    "format": "{}%",
+    "max-length": 10
+  },
+
+  "temperature": {
+    "icon-size": 16,
+    "format": "{temperatureC}°C"
+  },
+
+  "memory": {
+    "interval": 30,
+    "icon-size": 16,
+    "format": "{used:0.1f}G/{total:0.1f}GB"
+  },
+
+  "battery": {
+    "format": "{icon}{capacity}%",
+    "icon-size": 16,
+    "format-icons": ["", "󰁻", "󰁾", "󰂂", ""]
+  },
+
+  "tray": {
+    "spacing": 10
+  },
+
+  "backlight": {
+    //"format": "{backlight}% o"
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  
+  "custom/power": {
+  "format": "⏻",
+  "on-click": "wlogout",
+  "icon-size": 20,
+  "tooltip": false
+  },
+
+  "custom/launcher": {
+  "format": "󰀻",
+  "on-click": "fuzzel",
+  "tooltip": false
+  },
+
+  "custom/controlcenter": {
+  "format": "󰂚",
+  "on-click": "swaync-client -t",
+  "tooltip": false
+  },
+
+  "clock": {
+    "interval": 60,
+    "tooltip": true,
+    "format": "{:%H.%M}",
+    "tooltip-format": "{:%Y-%m-%d}"
+  }
+}
+

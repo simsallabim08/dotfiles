@@ -1,0 +1,136 @@
+* {
+    border: none;
+    border-radius: 4px;
+    font-family: "JetBrainsMono Nerd Font Mono", sans-serif;
+    font-size: 16px;
+    min-height: 0;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+window#waybar {
+    background: rgba(20, 25, 35, 0.85);  /* Darker navy - cuts through orange/fire */
+    border-bottom: 4px solid #FFD700;    /* Thick gold border - high contrast */
+    color: #FFF8DC;                      /* Warm off-white text */
+    margin: 8px;
+    border-radius: 8px;
+}
+
+tooltip {
+    background: rgba(20, 25, 35, 0.9);
+    border: 2px solid #FFD700;
+}
+tooltip label {
+    color: #FFF8DC;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #FFF8DC;
+    padding: 2px;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+    background: #DAA520;             /* Goldenrod - warm pop */
+    border-bottom: 4px solid #FFD700;
+}
+
+#clock {
+    background-color: #B8860B;       /* Dark goldenrod */
+    border-bottom: 4px solid #FFD700;
+    padding-right: 6px;
+    padding-left: 6px;
+    color: #FFF8DC;
+}
+
+#battery {
+    background-color: #FFF8DC;       /* Cornsilk - bright warm */
+    color: #1a1a1a;                  /* Dark text */
+    border-bottom: 4px solid #FFD700;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#battery.charging {
+    color: #1a1a1a;
+    background-color: #FF8C00;       /* Dark orange - charging glow */
+}
+
+#mpris {
+    background-color: #DAA520;       /* Goldenrod */
+    border-bottom: 4px solid #FFD700;
+    margin-left: 6px;
+    margin-right: 6px;
+    color: #1a1a1a;
+}
+
+#pulseaudio, #cpu, #temperature, #memory, #tray, #backlight, #custom-power, #power-profiles-daemon, #window {
+    border-bottom: 4px solid #FFD700;  /* Consistent thick gold borders */
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #FFF8DC;
+}
+
+#pulseaudio {
+    background: rgba(218, 165, 32, 0.7);  /* Semi-transparent goldenrod */
+}
+
+#cpu { background: #B8860B; }      /* Gold */
+#temperature { background: #B8860B; } /* Dark orange */
+#memory { background: #B8860B; }     /* Orange */
+#tray { background: transparent; }
+#backlight { background: #B8860B; } /* Warm white */
+#custom-power { 
+    background: #FF4500;  /* Red orange */
+    font-size: 20px;
+    color: #FFF8DC;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#tray {
+    background-color: #FFF8DC;
+}
+
+#custom-launcher {
+    border-bottom: 4px solid #FFD700;  /* Consistent thick gold borders */
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #FFF8DC;
+}
+
+#custom-controlcenter {
+    border-bottom: 4px solid #FFD700;  /* Consistent thick gold borders */
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #FFF8DC;
+}
+
+#power-profiles-daemon { 
+    background: #D2691E;  /* Chocolate */
+    font-size: 20px;
+    color: #FFF8DC;
+}
+#window {
+    background-color: #DAA520;
+    color: #1a1a1a;
+}
+
+@keyframes blink {
+    to {
+        background-color: #FF4500;  /* Bright orange blink */
+        color: #FFF8DC;
+    }
+}
+
+#battery.warning:not(.charging) {
+    background: #FF4500;
+    color: #FFF8DC;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+

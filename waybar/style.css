@@ -1,0 +1,73 @@
+* {
+    border: none;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font Mono", sans-serif;
+    font-size: 16px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(20, 25, 35, 0.85);
+    border-radius: 0px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #FFFFFF;
+    padding: 0px;
+    border-bottom: 1px solid transparent;
+}
+
+#workspaces button.focused {
+    border-bottom: 2px solid #FFFFFF;
+}
+
+#clock {
+    padding-right: 6px;
+    padding-left: 6px;
+    color: #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
+
+#mpris {
+    margin-left: 6px;
+    margin-right: 6px;
+    border-bottom: 2px solid #FFFFFF;
+}
+
+#pulseaudio, #battery, #cpu, #temperature, #memory, #tray, #backlight, #custom-power, #power-profiles-daemon, #window {
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
+
+#custom-power { 
+    background: #FF4500;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 0px;
+    border-bottom: 2px solid #FFFFFF;
+}
+
+#custom-launcher {
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #FFFFFF;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#custom-controlcenter {
+    padding-left: 4px;
+    padding-right: 4px;
+    color: #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+}
+
+#window {
+    background-color: #DAA520;
+    color: #1a1a1a;
+}

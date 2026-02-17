@@ -1,0 +1,37 @@
+[window]
+opacity = 0.75
+decorations = "full"
+dynamic_padding = false
+
+[window.dimensions]
+columns = 128
+lines = 38
+
+[window.padding]
+x = 2
+y = 2
+
+[font]
+size = 12.0
+normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
+
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[colors.primary]
+background = "#0f0f0f"
+foreground = "#dfe9df"
+
+[colors.cursor]
+text = "#0f200f"
+cursor = "#68f868"
+
+[colors.selection]
+text = "#0f200f"
+background = "#68f868"
+

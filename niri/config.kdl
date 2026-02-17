@@ -1,0 +1,367 @@
+//#############
+//### INPUT ###
+//#############
+
+input {
+    keyboard {
+        xkb {
+	    layout "se"
+            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+        }
+        // Enable numlock on startup, omitting this setting disables it.
+        numlock
+    }
+
+    touchpad {
+        tap
+        dwt
+        // dwtp
+        // drag false
+        // drag-lock
+        natural-scroll
+        accel-profile "flat"
+        scroll-method "two-finger"
+	accel-speed 0.8
+        disabled-on-external-mouse
+    }
+
+    mouse {
+         accel-profile "flat"
+	 accel-speed 0
+    }
+
+    trackpoint {
+        accel-profile "flat"
+        middle-emulation
+	accel-speed 0.2
+    }
+}
+
+
+//##############
+//### OUTPUT ###
+//##############
+
+output "eDP-1" {
+    mode "1920x1080@59.996"
+    scale 1.0
+    //variable-refresh-rate // on-demand=true
+    focus-at-startup
+    backdrop-color "#000011"
+
+    hot-corners {
+        // off
+        //top-left
+        // top-right
+        // bottom-left
+        bottom-right
+    }
+}
+
+output "DP-2" {
+	mode "1920x1080@239.964"
+	scale 1.0
+	focus-at-startup
+	backdrop-color "#000011"
+}
+
+output "HDMI-A-2" {
+	mode "1920x1080@60.000"
+	scale 1.0
+	backdrop-color "#000011"
+}
+
+
+//##############
+//### LAYOUT ###
+//##############
+
+layout {
+    gaps 12
+    background-color "transparent"
+    always-center-single-column
+    center-focused-column "never"
+
+    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
+    // preset-window-heights { }
+
+    default-column-width { proportion 0.5; }
+    // If you leave the brackets empty, the windows themselves will decide their initial width.
+    //default-column-width {}
+
+    focus-ring {
+        off
+        width 3
+        // Colors can be set in a variety of ways:
+        // - CSS named colors: "red"
+        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
+        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
+        active-color "#FFD700"
+        inactive-color "#505050"
+        //active-gradient from="#80c8ff" to="#c7ff7f" angle=45
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+
+    border {
+        // off
+        width 3
+
+        active-color "#40E0D0"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+        // Gradients can use a few different interpolation color spaces.
+        // For example, this is a pastel rainbow gradient via in="oklch longer hue".
+        //
+        //active-gradient from="#e5989b" to="#ffb4a2" angle=45 relative-to="workspace-view" in="oklch longer hue"
+        //inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+
+    shadow {
+        on
+        draw-behind-window false
+
+        // Softness controls the shadow blur radius.
+        softness 6
+        // Spread expands the shadow.
+        spread 3
+        // Offset moves the shadow relative to the window.
+        offset x=0 y=3
+        // You can also change the shadow color and opacity.
+        color "#11113399"
+    }
+
+    struts {
+        // left 64
+        // right 64
+        // top 64
+        // bottom 64
+    }
+}
+
+
+//###############
+//### STARTUP ###
+//###############
+
+spawn-at-startup "waybar"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "swaync"
+spawn-sh-at-startup "powertop --auto-tune"
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+
+//##################
+//### ANIMATIONS ###
+//##################
+
+animations {
+    workspace-switch {
+        spring damping-ratio=0.8 stiffness=1000 epsilon=0.0001
+    }
+    window-open {
+        spring damping-ratio=0.7 stiffness=1000 epsilon=0.0001
+    }
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=0.8 stiffness=800 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.8 stiffness=800 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=0.6 stiffness=700 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+    }
+    exit-confirmation-open-close {
+        spring damping-ratio=0.6 stiffness=500 epsilon=0.01
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=0.7 stiffness=800 epsilon=0.0001
+    }
+    recent-windows-close {
+        spring damping-ratio=0.8 stiffness=800 epsilon=0.001
+    }
+}
+
+
+//####################
+//### WiNDOW RULES ###
+//####################
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    block-out-from "screen-capture"
+    // Use this instead if you want them visible on third-party screenshot tools.
+    // block-out-from "screencast"
+}
+
+window-rule {
+    //geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+
+//#############
+//### BINDS ###
+//#############
+
+binds {
+    Mod+H { show-hotkey-overlay; }
+
+    Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Super+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "hyprlock -c ~/.config/hyprlock/hyprlock.conf"; }
+    Super+Escape hotkey-overlay-title="Open power menu: wlogout" { spawn "wlogout"; }
+    Super+E hotkey-overlay-title="Run file manager: thunar" { spawn "thunar"; }
+    Super+B hotkey-overlay-title="Run browser: waterfox" { spawn-sh "flatpak run net.waterfox.waterfox"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    // This will work with any MPRIS-enabled media player.
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
+    // but you need to manually put each argument in separate "" quotes.
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+
+    Mod+Tab repeat=false { toggle-overview; }
+
+    Mod+Q repeat=false { close-window; }
+
+    Mod+Left  { focus-column-or-monitor-left; }
+    Mod+Down  { focus-window-or-workspace-down; }
+    Mod+Up    { focus-window-or-workspace-up; }
+    Mod+Right { focus-column-or-monitor-right; }
+
+    Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
+    Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
+    Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
+    Mod+Shift+Right { move-column-right-or-to-monitor-right; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Shift+Home { move-column-to-first; }
+    Mod+Shift+End  { move-column-to-last; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+Shift+Page_Down { move-window-to-workspace-down; }
+    Mod+Shift+Page_Up   { move-window-to-workspace-up; }
+
+    Mod+WheelScrollDown      cooldown-ms=10 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=10 { focus-workspace-up; }
+    Mod+Shift+WheelScrollDown cooldown-ms=10 { focus-column-right; }
+    Mod+Shift+WheelScrollUp   cooldown-ms=10 { focus-column-left; }
+
+    //Mod+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
+    //Mod+TouchpadScrollUp   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-window-to-workspace 1; }
+    Mod+Shift+2 { move-window-to-workspace 2; }
+    Mod+Shift+3 { move-window-to-workspace 3; }
+    Mod+Shift+4 { move-window-to-workspace 4; }
+    Mod+Shift+5 { move-window-to-workspace 5; }
+    Mod+Shift+6 { move-window-to-workspace 6; }
+    Mod+Shift+7 { move-window-to-workspace 7; }
+    Mod+Shift+8 { move-window-to-workspace 8; }
+    Mod+Shift+9 { move-window-to-workspace 9; }
+
+    Mod+Ctrl+Left  { consume-or-expel-window-left; }
+    Mod+Ctrl+Right { consume-or-expel-window-right; }
+
+    Mod+R { switch-preset-column-width; }
+    // Cycling through the presets in reverse order is also possible.
+    // Mod+R { switch-preset-column-width-back; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+
+    Mod+C { center-column; }
+
+    // Center all fully visible columns on screen.
+    Mod+Shift+C { center-visible-columns; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Plus { set-column-width "+10%"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Plus { set-window-height "+10%"; }
+
+    // Move the focused window between the floating and the tiling layout.
+    Mod+T       { toggle-window-floating; }
+    // set-column-width "100" will make the column occupy 200 physical screen pixels.
+    Mod+Shift+T { switch-focus-between-floating-and-tiling; }
+
+    Mod+W { toggle-column-tabbed-display; }
+
+    // Actions to switch layouts.
+    // Note: if you uncomment these, make sure you do NOT have
+    // a matching layout switch hotkey configured in xkb options above.
+    // Having both at once on the same hotkey will break the switching,
+    // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
+    // Mod+Space       { switch-layout "next"; }
+    // Mod+Shift+Space { switch-layout "prev"; }
+
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+
+    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    Mod+Shift+P { power-off-monitors; }
+}
+
+
+//############
+//### MISC ###
+//############
+
+prefer-no-csd
+
+screenshot-path "~/Bilder/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+// You can also set this to null to disable saving screenshots to disk.
